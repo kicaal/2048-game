@@ -6,33 +6,30 @@
 		[0, 0, 0, 0]
 	];
 
-	let score = 0
+	let score = 0;
 
 	const MAX_POSITIONS = 4;
 	const FIRST_VALUE = 2;
 
-
-	let userWins = false
-	let isGameOver = false
+	let userWins = false;
+	let isGameOver = false;
 
 	const newGame = () => {
 		matrix = [
-		[0, 0, 0, 0],
-		[0, 0, 0, 0],
-		[0, 0, 0, 0],
-		[0, 0, 0, 0]
-	];
-	userWins = false
-	isGameOver = false
-	insertEmptyPosition()
-	insertEmptyPosition()
-	}
-
-
+			[0, 0, 0, 0],
+			[0, 0, 0, 0],
+			[0, 0, 0, 0],
+			[0, 0, 0, 0]
+		];
+		userWins = false;
+		isGameOver = false;
+		insertEmptyPosition();
+		insertEmptyPosition();
+	};
 
 	const moveLeft = () => {
-    let original = matrix.map((x) => x);
-    let modified = [];
+		let original = matrix.map((x) => x);
+		let modified = [];
 
 		const deepClone = [...matrix];
 		deepClone.forEach((clone, index) => {
@@ -43,12 +40,12 @@
 				if (item === cloneFiltered[index + 1]) {
 					cloneFiltered.splice(index + 1, 1);
 					arr.push(item * FIRST_VALUE);
-					score+= item * FIRST_VALUE
+					score += item * FIRST_VALUE;
 				} else {
 					arr.push(item);
 				}
 			});
-			arr.reverse()
+			arr.reverse();
 			modified.push(arr);
 			matrix[index] = arr;
 			matrix[index].push(...Array(MAX_POSITIONS - arr.length).fill(0));
@@ -57,12 +54,12 @@
 			insertEmptyPosition();
 		}
 
-		gameOver(matrix)
+		gameOver(matrix);
 	};
 
 	const moveRight = () => {
 		let original = matrix.map((x) => x);
-    let modified = [];
+		let modified = [];
 		const deepClone = [...matrix];
 
 		deepClone.forEach((clone, index) => {
@@ -73,19 +70,19 @@
 				if (item === cloneFiltered[index + 1]) {
 					cloneFiltered.splice(index + 1, 1);
 					arr.push(item * FIRST_VALUE);
-					score+= item * FIRST_VALUE
+					score += item * FIRST_VALUE;
 				} else {
 					arr.push(item);
 				}
 			});
-			modified.push = arr
+			modified.push = arr;
 			matrix[index] = arr;
 			matrix[index].unshift(...Array(MAX_POSITIONS - arr.length).fill(0));
 		});
 		if (JSON.stringify(original) !== JSON.stringify(modified)) {
 			insertEmptyPosition();
 		}
-		gameOver(matrix)
+		gameOver(matrix);
 	};
 
 	const moveDown = () => {
@@ -106,7 +103,7 @@
 				if (item === arr[index + 1]) {
 					arr.splice(index + 1, 1);
 					arr2.push(item * FIRST_VALUE);
-					score+= item * FIRST_VALUE
+					score += item * FIRST_VALUE;
 				} else {
 					arr2.push(item);
 				}
@@ -123,7 +120,7 @@
 		if (JSON.stringify(original) !== JSON.stringify(matrix)) {
 			insertEmptyPosition();
 		}
-		gameOver(matrix)
+		gameOver(matrix);
 	};
 
 	const moveUp = () => {
@@ -143,10 +140,9 @@
 				if (item === arr[index + 1]) {
 					arr.splice(index + 1, 1);
 					arr2.push(item * FIRST_VALUE);
-					score+= item * FIRST_VALUE
+					score += item * FIRST_VALUE;
 				} else {
 					arr2.push(item);
-
 				}
 			});
 			emptyMatrix[index] = arr2;
@@ -161,13 +157,13 @@
 		if (JSON.stringify(original) !== JSON.stringify(matrix)) {
 			insertEmptyPosition();
 		}
-		gameOver(matrix)
+		gameOver(matrix);
 	};
 
 	const insertEmptyPosition = () => {
 		const flat = matrix.flat();
 
-		if (flat.some(number => number === 2048)) userWins = true
+		if (flat.some((number) => number === 2048)) userWins = true;
 
 		const emptyPositions = flat.map((item, index) => {
 			if (item === 0) {
@@ -185,15 +181,15 @@
 		}
 
 		if (!emptyPositions) {
-			isGameOver = true
+			isGameOver = true;
 		}
 	};
 
 	const gameOver = (arr) => {
-    if (!arr.flat().includes(0)) {
-      isGameOver = true
-    }
-  };
+		if (!arr.flat().includes(0)) {
+			isGameOver = true;
+		}
+	};
 
 	insertEmptyPosition();
 	insertEmptyPosition();
@@ -207,21 +203,20 @@
 
 	const keyPress = (e) => (!userWins || !isGameOver) && keyMoves[e.keyCode]();
 
-const classes = {
-	0: 'bg-sky-800',
-	2: 'bg-sky-800',
-	4: 'bg-sky-900',
-	8: "bg-orange-500",
-	16: "bg-orange-600",
-	32: "bg-red-500",
-	64: "bg-red-600",
-	128: "bg-yellow-500",
-	256: "bg-yellow-600",
-	512: "bg-green-500",
-	1024: "bg-green-600",
-	2048: "bg-violet-600",
-}
-
+	const classes = {
+		0: 'bg-sky-800',
+		2: 'bg-sky-800',
+		4: 'bg-sky-900',
+		8: 'bg-orange-500',
+		16: 'bg-orange-600',
+		32: 'bg-red-500',
+		64: 'bg-red-600',
+		128: 'bg-yellow-500',
+		256: 'bg-yellow-600',
+		512: 'bg-green-500',
+		1024: 'bg-green-600',
+		2048: 'bg-violet-600'
+	};
 </script>
 
 <div class="flex flex-col items-center justify-around h-full bg-sky-600">
@@ -240,7 +235,11 @@ const classes = {
 	</div>
 	<div class="flex flex-col relative">
 		{#if userWins || isGameOver}
-		<div class="absolute bg-sky-800 bg-opacity-60 w-full h-full text-white flex items-center justify-center text-6xl"> {userWins ? "You've won!!" :"You've lost!!" }</div>
+			<div
+				class="absolute bg-sky-800 bg-opacity-60 w-full h-full text-white flex items-center justify-center text-6xl"
+			>
+				{userWins ? "You've won!!" : "You've lost!!"}
+			</div>
 		{/if}
 		{#each matrix as array}
 			<div class="flex bg-sky-700 gap-4 p-4 first:rounded-t-md last:rounded-b-md">
@@ -256,7 +255,4 @@ const classes = {
 	</div>
 </div>
 
-
 <svelte:window on:keydown={keyPress} />
-
-
