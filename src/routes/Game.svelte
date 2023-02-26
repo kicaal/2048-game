@@ -23,6 +23,7 @@
 		];
 		userWins = false;
 		isGameOver = false;
+		score = 0;
 		insertEmptyPosition();
 		insertEmptyPosition();
 	};
@@ -220,10 +221,6 @@
 </script>
 
 <div class="flex flex-col items-center justify-around h-full bg-sky-600">
-	<div class="text-white text-lg absolute left-5 top-5">
-		Welcome to 2048 game!<br /> To PLAY: Use your arrow keys to move the tiles.<br /> The tiles are the
-		same number to be able to be mixed
-	</div>
 	<div class="flex gap-4">
 		<div class="bg-sky-700 text-white py-4 px-6 text-2xl rounded-md flex items-center">
 			<button on:click={newGame}>New Game!</button>
@@ -242,7 +239,7 @@
 			</div>
 		{/if}
 		{#each matrix as array}
-			<div class="flex bg-sky-700 gap-4 p-4 first:rounded-t-md last:rounded-b-md">
+			<div class="flex bg-sky-700 gap-2 pt-4 last:pb-4 px-4 first:rounded-t-md last:rounded-b-md">
 				{#each array as value}
 					<div
 						class={`flex justify-center items-center w-24 h-24 text-white text-5xl rounded-md ${classes[value]}`}
@@ -252,6 +249,10 @@
 				{/each}
 			</div>
 		{/each}
+	</div>
+	<div class="text-white text-lg">
+		Welcome to 2048 game!<br /> To PLAY: Use your arrow keys to move the tiles.<br /> The tiles are the
+		same number to be able to be mixed
 	</div>
 </div>
 
